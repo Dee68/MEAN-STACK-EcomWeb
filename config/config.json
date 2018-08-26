@@ -1,0 +1,10 @@
+{
+  "development": {
+    "PORT": 4040,
+    "MongoDB_URI": "mongodb://mrdee:mrdee1432@ds235022.mlab.com:35022/okraplant"
+  },
+  "production": {
+    "PORT": 8080,
+    "MongoDB_URI": "mongodb://xxxx:Db_Name"
+  }
+}
