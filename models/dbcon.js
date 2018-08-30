@@ -13,3 +13,5 @@ mongoose.connect(
     }
   }
 );
+//include user model
+require("./user.model");
