@@ -1,0 +1,36 @@
+<div>
+  <form [formGroup]="signupForm" (ngSubmit)="Signup(signupForm)">
+    <div class="form-group">
+      <input type="text" class="form-control" name="username" placeholder="Enter your name" formControlName="username">
+    </div>
+    <div *ngIf="signupForm.controls['username'].touched && !signupForm.controls['username'].valid">
+      <span *ngIf="signupForm.controls['username'].hasError('required')">
+        Username field is required.
+      </span>
+      <span *ngIf="signupForm.controls['username'].hasError('minlength')">
+        Username must not be less than 2 characters.
+      </span>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" name="email" placeholder="Enter email" formControlName="email">
+    </div>
+    <div *ngIf="signupForm.controls['email'].touched && !signupForm.controls['email'].valid">
+      <span *ngIf="signupForm.controls['email'].hasError('required')" class="alert alert-danger">
+        Email field is required
+      </span>
+      <span *ngIf="signupForm.controls['email'].hasError('email')" class="alert alert-danger">
+        Email is Invalid
+      </span>
+    </div>
+    <div class="form-group">
+      <input type="password" formControlName="password" name="password" placeholder="Enter Password" class="form-control">
+    </div>
+    <div>
+      <input type="password" class="form-control" name="cpass" placeholder="confirm password" formControlName="cpass">
+    </div>
+    <br>
+    <div class="form-group">
+      <input type="submit" value="Signup" class="btn btn-lg btn-primary" [disabled]="!signupForm.valid">
+    </div>
+  </form>
+</div>
