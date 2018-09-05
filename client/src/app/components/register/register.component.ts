@@ -19,36 +19,56 @@ import {
 })
 export class RegisterComponent implements OnInit {
   signupForm: FormGroup;
-  // tslint:disable-next-line:quotemark
-  UserName: String = "";
-  // tslint:disable-next-line:quotemark
-  Email: String = "";
-  // tslint:disable-next-line:quotemark
-  Password: String = "";
-  // tslint:disable-next-line:quotemark
-  ConfirmPassword: String = "";
+  // // tslint:disable-next-line:quotemark
+  // UserName: String = "";
+  // // tslint:disable-next-line:quotemark
+  // Email: String = "";
+  // // tslint:disable-next-line:quotemark
+  // Password: String = "";
+  // // tslint:disable-next-line:quotemark
+  // ConfirmPassword: String = "";
 
   constructor(private fb: FormBuilder) {
-    this.signupForm = this.fb.group({
-      username: [
-        // tslint:disable-next-line:quotemark
-        "",
-        Validators.compose([Validators.required, Validators.minLength(2)])
-      ],
-      // tslint:disable-next-line:quotemark
-      email: ["", Validators.compose([Validators.required, Validators.email])],
-      password: [
-        // tslint:disable-next-line:quotemark
-        "",
-        Validators.compose([Validators.required, Validators.minLength(6)])
-      ],
-      // tslint:disable-next-line:quotemark
-      cpass: ["", Validators.required]
-    });
+    this.createForm();
   }
 
   ngOnInit() {}
   Signup(signupForm: NgForm) {
     console.log(signupForm.controls);
+  }
+  matchingPass(password, cpass) {
+    return (group: FormGroup) => {
+      if (group.controls[password].value === group.controls[cpass].value) {
+        return null;
+      } else {
+        return { matchingPass: true };
+      }
+    };
+  }
+  createForm() {
+    this.signupForm = this.fb.group(
+      {
+        username: [
+          // tslint:disable-next-line:quotemark
+          "",
+          Validators.compose([Validators.required, Validators.minLength(2)])
+        ],
+        // tslint:disable-next-line:quotemark
+        email: [
+          // tslint:disable-next-line:quotemark
+          "",
+          Validators.compose([Validators.required, Validators.email])
+        ],
+        password: [
+          // tslint:disable-next-line:quotemark
+          "",
+          Validators.compose([Validators.required, Validators.minLength(6)])
+        ],
+        // tslint:disable-next-line:quotemark
+        cpass: ["", Validators.required]
+      },
+      // tslint:disable-next-line:quotemark
+      { validator: this.matchingPass("password", "cpass") }
+    );
   }
 }
